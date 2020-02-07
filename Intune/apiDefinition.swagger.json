@@ -1,7 +1,7 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Microsoft Intune Connector",
+    "title": "MEM Microsoft Intune Connector",
     "description": "The Microsoft Intune connector helps to automate Microsoft Intune",
     "version": "0.1",
     "contact": {

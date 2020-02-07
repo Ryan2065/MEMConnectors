@@ -1,8 +1,7 @@
 {
   "properties": {
     "capabilities": [
-      "actions",
-      "triggers"
+      "actions"
     ],
     "connectionParameters": {
       "token": {
@@ -56,9 +55,3 @@
     }
   }
 }
-
-
-
-
-
-
