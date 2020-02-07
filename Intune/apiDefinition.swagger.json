@@ -1,0 +1,452 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Microsoft Intune Connector",
+    "description": "The Microsoft Intune connector helps to automate Microsoft Intune",
+    "version": "0.1",
+    "contact": {
+      "name": "team_name",
+      "email": "exampleemail@example.com"
+    }
+  },
+  "host": "graph.microsoft.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1.0/deviceManagement/managedDevices/{managedDeviceId}": {
+      "get": {
+        "description": "Get a device by managed device id",
+        "summary": "Get Device",
+        "operationId": "GetDevice",
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "$ref": "#/definitions/ManagedObject"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "managedDeviceId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "The managed device id",
+            "x-ms-visibility": "important",
+            "x-ms-url-encoding": "single",
+            "x-ms-summary": "Managed Device Id"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "ManagedObject": {
+      "type": "object",
+      "title": "ManagedObject",
+      "description": "A single managed object",
+      "properties": {
+        "value": {
+          "type": "object",
+          "properties": {
+            "@odata.type": {
+              "type": "string",
+              "description": "@odata.type"
+            },
+            "id": {
+              "type": "string",
+              "description": "id"
+            },
+            "userId": {
+              "type": "string",
+              "description": "userId"
+            },
+            "deviceName": {
+              "type": "string",
+              "description": "deviceName"
+            },
+            "managedDeviceOwnerType": {
+              "type": "string",
+              "description": "managedDeviceOwnerType"
+            },
+            "deviceActionResults": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "@odata.type": {
+                    "type": "string",
+                    "description": "@odata.type"
+                  },
+                  "actionName": {
+                    "type": "string",
+                    "description": "actionName"
+                  },
+                  "actionState": {
+                    "type": "string",
+                    "description": "actionState"
+                  },
+                  "startDateTime": {
+                    "type": "string",
+                    "description": "startDateTime"
+                  },
+                  "lastUpdatedDateTime": {
+                    "type": "string",
+                    "description": "lastUpdatedDateTime"
+                  }
+                }
+              },
+              "description": "deviceActionResults"
+            },
+            "enrolledDateTime": {
+              "type": "string",
+              "description": "enrolledDateTime"
+            },
+            "lastSyncDateTime": {
+              "type": "string",
+              "description": "lastSyncDateTime"
+            },
+            "operatingSystem": {
+              "type": "string",
+              "description": "operatingSystem"
+            },
+            "complianceState": {
+              "type": "string",
+              "description": "complianceState"
+            },
+            "jailBroken": {
+              "type": "string",
+              "description": "jailBroken"
+            },
+            "managementAgent": {
+              "type": "string",
+              "description": "managementAgent"
+            },
+            "osVersion": {
+              "type": "string",
+              "description": "osVersion"
+            },
+            "easActivated": {
+              "type": "boolean",
+              "description": "easActivated"
+            },
+            "easDeviceId": {
+              "type": "string",
+              "description": "easDeviceId"
+            },
+            "easActivationDateTime": {
+              "type": "string",
+              "description": "easActivationDateTime"
+            },
+            "azureADRegistered": {
+              "type": "boolean",
+              "description": "azureADRegistered"
+            },
+            "deviceEnrollmentType": {
+              "type": "string",
+              "description": "deviceEnrollmentType"
+            },
+            "activationLockBypassCode": {
+              "type": "string",
+              "description": "activationLockBypassCode"
+            },
+            "emailAddress": {
+              "type": "string",
+              "description": "emailAddress"
+            },
+            "azureADDeviceId": {
+              "type": "string",
+              "description": "azureADDeviceId"
+            },
+            "deviceRegistrationState": {
+              "type": "string",
+              "description": "deviceRegistrationState"
+            },
+            "deviceCategoryDisplayName": {
+              "type": "string",
+              "description": "deviceCategoryDisplayName"
+            },
+            "isSupervised": {
+              "type": "boolean",
+              "description": "isSupervised"
+            },
+            "exchangeLastSuccessfulSyncDateTime": {
+              "type": "string",
+              "description": "exchangeLastSuccessfulSyncDateTime"
+            },
+            "exchangeAccessState": {
+              "type": "string",
+              "description": "exchangeAccessState"
+            },
+            "exchangeAccessStateReason": {
+              "type": "string",
+              "description": "exchangeAccessStateReason"
+            },
+            "remoteAssistanceSessionUrl": {
+              "type": "string",
+              "description": "remoteAssistanceSessionUrl"
+            },
+            "remoteAssistanceSessionErrorDetails": {
+              "type": "string",
+              "description": "remoteAssistanceSessionErrorDetails"
+            },
+            "isEncrypted": {
+              "type": "boolean",
+              "description": "isEncrypted"
+            },
+            "userPrincipalName": {
+              "type": "string",
+              "description": "userPrincipalName"
+            },
+            "model": {
+              "type": "string",
+              "description": "model"
+            },
+            "manufacturer": {
+              "type": "string",
+              "description": "manufacturer"
+            },
+            "imei": {
+              "type": "string",
+              "description": "imei"
+            },
+            "complianceGracePeriodExpirationDateTime": {
+              "type": "string",
+              "description": "complianceGracePeriodExpirationDateTime"
+            },
+            "serialNumber": {
+              "type": "string",
+              "description": "serialNumber"
+            },
+            "phoneNumber": {
+              "type": "string",
+              "description": "phoneNumber"
+            },
+            "androidSecurityPatchLevel": {
+              "type": "string",
+              "description": "androidSecurityPatchLevel"
+            },
+            "userDisplayName": {
+              "type": "string",
+              "description": "userDisplayName"
+            },
+            "configurationManagerClientEnabledFeatures": {
+              "type": "object",
+              "properties": {
+                "@odata.type": {
+                  "type": "string",
+                  "description": "@odata.type"
+                },
+                "inventory": {
+                  "type": "boolean",
+                  "description": "inventory"
+                },
+                "modernApps": {
+                  "type": "boolean",
+                  "description": "modernApps"
+                },
+                "resourceAccess": {
+                  "type": "boolean",
+                  "description": "resourceAccess"
+                },
+                "deviceConfiguration": {
+                  "type": "boolean",
+                  "description": "deviceConfiguration"
+                },
+                "compliancePolicy": {
+                  "type": "boolean",
+                  "description": "compliancePolicy"
+                },
+                "windowsUpdateForBusiness": {
+                  "type": "boolean",
+                  "description": "windowsUpdateForBusiness"
+                }
+              },
+              "description": "configurationManagerClientEnabledFeatures"
+            },
+            "wiFiMacAddress": {
+              "type": "string",
+              "description": "wiFiMacAddress"
+            },
+            "deviceHealthAttestationState": {
+              "type": "object",
+              "properties": {
+                "@odata.type": {
+                  "type": "string",
+                  "description": "@odata.type"
+                },
+                "lastUpdateDateTime": {
+                  "type": "string",
+                  "description": "lastUpdateDateTime"
+                },
+                "contentNamespaceUrl": {
+                  "type": "string",
+                  "description": "contentNamespaceUrl"
+                },
+                "deviceHealthAttestationStatus": {
+                  "type": "string",
+                  "description": "deviceHealthAttestationStatus"
+                },
+                "contentVersion": {
+                  "type": "string",
+                  "description": "contentVersion"
+                },
+                "issuedDateTime": {
+                  "type": "string",
+                  "description": "issuedDateTime"
+                },
+                "attestationIdentityKey": {
+                  "type": "string",
+                  "description": "attestationIdentityKey"
+                },
+                "resetCount": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "resetCount"
+                },
+                "restartCount": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "restartCount"
+                },
+                "dataExcutionPolicy": {
+                  "type": "string",
+                  "description": "dataExcutionPolicy"
+                },
+                "bitLockerStatus": {
+                  "type": "string",
+                  "description": "bitLockerStatus"
+                },
+                "bootManagerVersion": {
+                  "type": "string",
+                  "description": "bootManagerVersion"
+                },
+                "codeIntegrityCheckVersion": {
+                  "type": "string",
+                  "description": "codeIntegrityCheckVersion"
+                },
+                "secureBoot": {
+                  "type": "string",
+                  "description": "secureBoot"
+                },
+                "bootDebugging": {
+                  "type": "string",
+                  "description": "bootDebugging"
+                },
+                "operatingSystemKernelDebugging": {
+                  "type": "string",
+                  "description": "operatingSystemKernelDebugging"
+                },
+                "codeIntegrity": {
+                  "type": "string",
+                  "description": "codeIntegrity"
+                },
+                "testSigning": {
+                  "type": "string",
+                  "description": "testSigning"
+                },
+                "safeMode": {
+                  "type": "string",
+                  "description": "safeMode"
+                },
+                "windowsPE": {
+                  "type": "string",
+                  "description": "windowsPE"
+                },
+                "earlyLaunchAntiMalwareDriverProtection": {
+                  "type": "string",
+                  "description": "earlyLaunchAntiMalwareDriverProtection"
+                },
+                "virtualSecureMode": {
+                  "type": "string",
+                  "description": "virtualSecureMode"
+                },
+                "pcrHashAlgorithm": {
+                  "type": "string",
+                  "description": "pcrHashAlgorithm"
+                },
+                "bootAppSecurityVersion": {
+                  "type": "string",
+                  "description": "bootAppSecurityVersion"
+                },
+                "bootManagerSecurityVersion": {
+                  "type": "string",
+                  "description": "bootManagerSecurityVersion"
+                },
+                "tpmVersion": {
+                  "type": "string",
+                  "description": "tpmVersion"
+                },
+                "pcr0": {
+                  "type": "string",
+                  "description": "pcr0"
+                },
+                "secureBootConfigurationPolicyFingerPrint": {
+                  "type": "string",
+                  "description": "secureBootConfigurationPolicyFingerPrint"
+                },
+                "codeIntegrityPolicy": {
+                  "type": "string",
+                  "description": "codeIntegrityPolicy"
+                },
+                "bootRevisionListInfo": {
+                  "type": "string",
+                  "description": "bootRevisionListInfo"
+                },
+                "operatingSystemRevListInfo": {
+                  "type": "string",
+                  "description": "operatingSystemRevListInfo"
+                },
+                "healthStatusMismatchInfo": {
+                  "type": "string",
+                  "description": "healthStatusMismatchInfo"
+                },
+                "healthAttestationSupportedStatus": {
+                  "type": "string",
+                  "description": "healthAttestationSupportedStatus"
+                }
+              },
+              "description": "deviceHealthAttestationState"
+            },
+            "subscriberCarrier": {
+              "type": "string",
+              "description": "subscriberCarrier"
+            },
+            "meid": {
+              "type": "string",
+              "description": "meid"
+            },
+            "totalStorageSpaceInBytes": {
+              "type": "integer",
+              "format": "int32",
+              "description": "totalStorageSpaceInBytes"
+            },
+            "freeStorageSpaceInBytes": {
+              "type": "integer",
+              "format": "int32",
+              "description": "freeStorageSpaceInBytes"
+            },
+            "managedDeviceName": {
+              "type": "string",
+              "description": "managedDeviceName"
+            },
+            "partnerReportedThreatState": {
+              "type": "string",
+              "description": "partnerReportedThreatState"
+            }
+          },
+          "description": "value"
+        }
+      }
+    }
+  }
+}

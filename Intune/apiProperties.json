@@ -1,0 +1,64 @@
+{
+  "properties": {
+    "capabilities": [
+      "actions",
+      "triggers"
+    ],
+    "connectionParameters": {
+      "token": {
+        "oAuthSettings": {
+          "clientId": "{{replace_with_your_client_id}}",
+          "customParameters": {
+            "loginUri": {
+              "value": "https://login.windows.net"
+            },
+            "resourceUri": {
+              "value": "https://graph.microsoft.com/"
+            },
+            "tenantId": {
+              "value": "common"
+            }
+          },
+          "identityProvider": "aad",
+          "properties": {
+            "IsFirstParty": "False"
+          },
+          "redirectMode": "Global",
+          "redirectUrl": "https://global.consent.azure-apim.net/redirect",
+          "scopes": [
+            "DeviceManagementApps.Read.All",
+            "DeviceManagementApps.ReadWrite.All",
+            "DeviceManagementConfiguration.Read.All",
+            "DeviceManagementConfiguration.ReadWrite.All",
+            "DeviceManagementManagedDevices.PrivilegedOperations.All",
+            "DeviceManagementManagedDevices.Read.All",
+            "DeviceManagementManagedDevices.ReadWrite.All",
+            "DeviceManagementRBAC.Read.All",
+            "DeviceManagementRBAC.ReadWrite.All",
+            "DeviceManagementServiceConfig.Read.All",
+            "DeviceManagementServiceConfig.ReadWrite.All"
+          ]
+        },
+        "type": "oauthSetting"
+      },
+      "token:TenantId": {
+        "metadata": {
+          "sourceType": "AzureActiveDirectoryTenant"
+        },
+        "type": "string",
+        "uiDefinition": {
+          "constraints": {
+            "hidden": "true",
+            "required": "false"
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
