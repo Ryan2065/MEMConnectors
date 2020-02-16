@@ -40,7 +40,7 @@
             "in": "path",
             "required": true,
             "type": "string",
-            "description": "The managed device id",
+            "description": "Unique Identifier for the device",
             "x-ms-visibility": "important",
             "x-ms-url-encoding": "single",
             "x-ms-summary": "Managed Device Id"
@@ -58,78 +58,90 @@
         "value": {
           "type": "object",
           "properties": {
-            "@odata.type": {
-              "type": "string",
-              "description": "@odata.type"
-            },
             "id": {
               "type": "string",
-              "description": "id"
+              "description": "Unique Identifier for the device"
             },
             "userId": {
               "type": "string",
-              "description": "userId"
+              "description": "Unique Identifier for the user associated with the device"
             },
             "deviceName": {
               "type": "string",
-              "description": "deviceName"
+              "description": "Name of the device"
             },
             "managedDeviceOwnerType": {
               "type": "string",
-              "description": "managedDeviceOwnerType"
+              "format": "enum",
+              "enum": [
+                "unknown"
+                ,"company"
+                ,"personal"
+              ],
+              "description": "Ownership of the device. Can be 'company' or 'personal'. Possible values are: unknown, company, personal."
             },
             "deviceActionResults": {
               "type": "array",
               "items": {
                 "type": "object",
                 "properties": {
-                  "@odata.type": {
-                    "type": "string",
-                    "description": "@odata.type"
-                  },
                   "actionName": {
                     "type": "string",
-                    "description": "actionName"
+                    "description": "Action name"
                   },
                   "actionState": {
                     "type": "string",
-                    "description": "actionState"
+                    "format": "enum",
+                    "enum": [
+                      "none",
+                      "pending",
+                      "canceled",
+                      "active",
+                      "done",
+                      "failed",
+                      "notSupported"
+                    ],
+                    "description": "State of the action. Possible values are: none, pending, canceled, active, done, failed, notSupported."
                   },
                   "startDateTime": {
                     "type": "string",
-                    "description": "startDateTime"
+                    "format": "timestamp",
+                    "description": "Time the action was initiated"
                   },
                   "lastUpdatedDateTime": {
                     "type": "string",
-                    "description": "lastUpdatedDateTime"
+                    "format": "timestamp",
+                    "description": "Time the action state was last updated"
                   }
                 }
               },
-              "description": "deviceActionResults"
+              "description": "List of ComplexType deviceActionResult objects."
             },
             "enrolledDateTime": {
               "type": "string",
-              "description": "enrolledDateTime"
+              "format": "timestamp",
+              "description": "Enrollment time of the device."
             },
             "lastSyncDateTime": {
               "type": "string",
-              "description": "lastSyncDateTime"
+              "format": "timestamp",
+              "description": "The date and time that the device last completed a successful sync with Intune."
             },
             "operatingSystem": {
               "type": "string",
-              "description": "operatingSystem"
+              "description": "Operating system of the device. Windows, iOS, etc."
             },
             "complianceState": {
               "type": "string",
-              "description": "complianceState"
+              "description": "Compliance state of the device. Possible values are: unknown, compliant, noncompliant, conflict, error, inGracePeriod, configManager."
             },
             "jailBroken": {
               "type": "string",
-              "description": "jailBroken"
+              "description": "whether the device is jail broken or rooted."
             },
             "managementAgent": {
               "type": "string",
-              "description": "managementAgent"
+              "description": "Management channel of the device. Intune, EAS, etc. Possible values are: eas, mdm, easMdm, intuneClient, easIntuneClient, configurationManagerClient, configurationManagerClientMdm, configurationManagerClientMdmEas, unknown, jamf, googleCloudDevicePolicyController."
             },
             "osVersion": {
               "type": "string",
