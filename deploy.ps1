@@ -8,31 +8,49 @@ Param(
     [string]$Connector,
     [switch]$Update
 )
-$CurrentLocation = Get-Location
-Set-Location "$PSScriptRoot\$Connector"
 
-$apiPropertiesContent = Get-Content "apiProperties.json" -Raw
+$CurrentLocation = Get-Location
+
+$BinLocation = "$PSScriptRoot\bin\$Connector"
+$ConnectorLocation = "$PSScriptRoot\$Connector"
+
+if(-not (Test-Path $BinLocation)){
+    $null = New-Item -Path $BinLocation -ItemType Directory -Force
+}
+else{
+    $null = Remove-Item -Path "$BinLocation\apiProperties.json" -Force -ErrorAction SilentlyContinue
+    $null = Remove-Item -Path "$BinLocation\apiDefinition.swagger.json" -Force -ErrorAction SilentlyContinue
+}
+
+$apiPropertiesContent = Get-Content "$ConnectorLocation\apiProperties.json" -Raw
+$apiDefinition = Get-Content "$ConnectorLocation\apiDefinition.swagger.json" -Raw
 
 $correctAPIPropertiesContent = $apiPropertiesContent.Replace('{{replace_with_your_client_id}}', $ClientId)
 $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
-Remove-Item apiProperties.json -Force -ErrorAction SilentlyContinue
-[System.IO.File]::WriteAllLines("$PSScriptRoot\$Connector\apiProperties.json", $correctAPIPropertiesContent, $Utf8NoBomEncoding)
+
+[System.IO.File]::WriteAllLines("$BinLocation\apiProperties.json", $correctAPIPropertiesContent, $Utf8NoBomEncoding)
+[System.IO.File]::WriteAllLines("$BinLocation\apiDefinition.swagger.json", $apiDefinition, $Utf8NoBomEncoding)
+
+Set-Location $BinLocation
 
 $RanCommand = $false
 if(Get-Command 'paconn.exe' -ErrorAction SilentlyContinue){
     $RanCommand = $true
     if($update){
-        paconn update --api-def apiDefinition.swagger.json --api-prop apiProperties.json --secret "$ClientSecret"
+        paconn update --api-def apiDefinition.swagger.json --api-prop apiProperties.json --secret "$ClientSecret" 2>&1 | Tee-Object -Variable response
+        if($response.ToString().Contains('Access token invalid')){
+            paconn login
+            paconn update --api-def apiDefinition.swagger.json --api-prop apiProperties.json --secret "$ClientSecret"
+        }
     }
     else {
-        paconn create --api-def apiDefinition.swagger.json --api-prop apiProperties.json --secret "$ClientSecret"
+        paconn create --api-def apiDefinition.swagger.json --api-prop apiProperties.json --secret "$ClientSecret" 2>&1 | Tee-Object -Variable response
+        if($response.ToString().Contains('Access token invalid')){
+            paconn login
+            paconn create --api-def apiDefinition.swagger.json --api-prop apiProperties.json --secret "$ClientSecret"
+        }
     }
 }
-
-
-#cleanup
-Remove-Item apiProperties.json -Force -ErrorAction SilentlyContinue
-[System.IO.File]::WriteAllLines("$PSScriptRoot\$Connector\apiProperties.json", $apiPropertiesContent.Trim(), $Utf8NoBomEncoding)
 
 if($false -eq $RanCommand){
     throw "Paconn is not installed. This will require Python be installed on this computer. Please see ReadMe for instructions. Paconn documentation located at: https://pypi.org/project/paconn/"
