@@ -66,7 +66,7 @@
                         "name": "$filter",
                         "in": "query",
                         "required": false,
-                        "description": "Specify filtering condition for devices like complianceState eq \"noncompliant\".",
+                        "description": "Specify filtering condition for devices like complianceState eq 'noncompliant'.",
                         "x-ms-summary": "Filter devices",
                         "type": "string"
                       }
