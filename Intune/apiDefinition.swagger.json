@@ -1,464 +1,1177 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "title": "MEM Microsoft Intune Connector",
-    "description": "The Microsoft Intune connector helps to automate Microsoft Intune",
-    "version": "0.1",
-    "contact": {
-      "name": "team_name",
-      "email": "exampleemail@example.com"
-    }
-  },
-  "host": "graph.microsoft.com",
-  "basePath": "/",
-  "schemes": [
-    "https"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
-  "paths": {
-    "/v1.0/deviceManagement/managedDevices/{managedDeviceId}": {
-      "get": {
-        "description": "Get a device by managed device id",
-        "summary": "Get Device",
-        "operationId": "GetDevice",
-        "responses": {
-          "default": {
-            "description": "default",
-            "schema": {
-              "$ref": "#/definitions/ManagedObject"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "managedDeviceId",
-            "in": "path",
-            "required": true,
-            "type": "string",
-            "description": "Unique Identifier for the device",
-            "x-ms-visibility": "important",
-            "x-ms-url-encoding": "single",
-            "x-ms-summary": "Managed Device Id"
-          }
-        ]
-      }
-    }
-  },
-  "definitions": {
-    "ManagedObject": {
-      "type": "object",
-      "title": "ManagedObject",
-      "description": "A single managed object",
-      "properties": {
-        "value": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "Unique Identifier for the device"
-            },
-            "userId": {
-              "type": "string",
-              "description": "Unique Identifier for the user associated with the device"
-            },
-            "deviceName": {
-              "type": "string",
-              "description": "Name of the device"
-            },
-            "managedDeviceOwnerType": {
-              "type": "string",
-              "format": "enum",
-              "enum": [
-                "unknown"
-                ,"company"
-                ,"personal"
-              ],
-              "description": "Ownership of the device. Can be 'company' or 'personal'. Possible values are: unknown, company, personal."
-            },
-            "deviceActionResults": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "actionName": {
-                    "type": "string",
-                    "description": "Action name"
-                  },
-                  "actionState": {
-                    "type": "string",
-                    "format": "enum",
-                    "enum": [
-                      "none",
-                      "pending",
-                      "canceled",
-                      "active",
-                      "done",
-                      "failed",
-                      "notSupported"
-                    ],
-                    "description": "State of the action. Possible values are: none, pending, canceled, active, done, failed, notSupported."
-                  },
-                  "startDateTime": {
-                    "type": "string",
-                    "format": "timestamp",
-                    "description": "Time the action was initiated"
-                  },
-                  "lastUpdatedDateTime": {
-                    "type": "string",
-                    "format": "timestamp",
-                    "description": "Time the action state was last updated"
-                  }
-                }
-              },
-              "description": "List of ComplexType deviceActionResult objects."
-            },
-            "enrolledDateTime": {
-              "type": "string",
-              "format": "timestamp",
-              "description": "Enrollment time of the device."
-            },
-            "lastSyncDateTime": {
-              "type": "string",
-              "format": "timestamp",
-              "description": "The date and time that the device last completed a successful sync with Intune."
-            },
-            "operatingSystem": {
-              "type": "string",
-              "description": "Operating system of the device. Windows, iOS, etc."
-            },
-            "complianceState": {
-              "type": "string",
-              "description": "Compliance state of the device. Possible values are: unknown, compliant, noncompliant, conflict, error, inGracePeriod, configManager."
-            },
-            "jailBroken": {
-              "type": "string",
-              "description": "whether the device is jail broken or rooted."
-            },
-            "managementAgent": {
-              "type": "string",
-              "description": "Management channel of the device. Intune, EAS, etc. Possible values are: eas, mdm, easMdm, intuneClient, easIntuneClient, configurationManagerClient, configurationManagerClientMdm, configurationManagerClientMdmEas, unknown, jamf, googleCloudDevicePolicyController."
-            },
-            "osVersion": {
-              "type": "string",
-              "description": "osVersion"
-            },
-            "easActivated": {
-              "type": "boolean",
-              "description": "easActivated"
-            },
-            "easDeviceId": {
-              "type": "string",
-              "description": "easDeviceId"
-            },
-            "easActivationDateTime": {
-              "type": "string",
-              "description": "easActivationDateTime"
-            },
-            "azureADRegistered": {
-              "type": "boolean",
-              "description": "azureADRegistered"
-            },
-            "deviceEnrollmentType": {
-              "type": "string",
-              "description": "deviceEnrollmentType"
-            },
-            "activationLockBypassCode": {
-              "type": "string",
-              "description": "activationLockBypassCode"
-            },
-            "emailAddress": {
-              "type": "string",
-              "description": "emailAddress"
-            },
-            "azureADDeviceId": {
-              "type": "string",
-              "description": "azureADDeviceId"
-            },
-            "deviceRegistrationState": {
-              "type": "string",
-              "description": "deviceRegistrationState"
-            },
-            "deviceCategoryDisplayName": {
-              "type": "string",
-              "description": "deviceCategoryDisplayName"
-            },
-            "isSupervised": {
-              "type": "boolean",
-              "description": "isSupervised"
-            },
-            "exchangeLastSuccessfulSyncDateTime": {
-              "type": "string",
-              "description": "exchangeLastSuccessfulSyncDateTime"
-            },
-            "exchangeAccessState": {
-              "type": "string",
-              "description": "exchangeAccessState"
-            },
-            "exchangeAccessStateReason": {
-              "type": "string",
-              "description": "exchangeAccessStateReason"
-            },
-            "remoteAssistanceSessionUrl": {
-              "type": "string",
-              "description": "remoteAssistanceSessionUrl"
-            },
-            "remoteAssistanceSessionErrorDetails": {
-              "type": "string",
-              "description": "remoteAssistanceSessionErrorDetails"
-            },
-            "isEncrypted": {
-              "type": "boolean",
-              "description": "isEncrypted"
-            },
-            "userPrincipalName": {
-              "type": "string",
-              "description": "userPrincipalName"
-            },
-            "model": {
-              "type": "string",
-              "description": "model"
-            },
-            "manufacturer": {
-              "type": "string",
-              "description": "manufacturer"
-            },
-            "imei": {
-              "type": "string",
-              "description": "imei"
-            },
-            "complianceGracePeriodExpirationDateTime": {
-              "type": "string",
-              "description": "complianceGracePeriodExpirationDateTime"
-            },
-            "serialNumber": {
-              "type": "string",
-              "description": "serialNumber"
-            },
-            "phoneNumber": {
-              "type": "string",
-              "description": "phoneNumber"
-            },
-            "androidSecurityPatchLevel": {
-              "type": "string",
-              "description": "androidSecurityPatchLevel"
-            },
-            "userDisplayName": {
-              "type": "string",
-              "description": "userDisplayName"
-            },
-            "configurationManagerClientEnabledFeatures": {
-              "type": "object",
-              "properties": {
-                "@odata.type": {
-                  "type": "string",
-                  "description": "@odata.type"
-                },
-                "inventory": {
-                  "type": "boolean",
-                  "description": "inventory"
-                },
-                "modernApps": {
-                  "type": "boolean",
-                  "description": "modernApps"
-                },
-                "resourceAccess": {
-                  "type": "boolean",
-                  "description": "resourceAccess"
-                },
-                "deviceConfiguration": {
-                  "type": "boolean",
-                  "description": "deviceConfiguration"
-                },
-                "compliancePolicy": {
-                  "type": "boolean",
-                  "description": "compliancePolicy"
-                },
-                "windowsUpdateForBusiness": {
-                  "type": "boolean",
-                  "description": "windowsUpdateForBusiness"
-                }
-              },
-              "description": "configurationManagerClientEnabledFeatures"
-            },
-            "wiFiMacAddress": {
-              "type": "string",
-              "description": "wiFiMacAddress"
-            },
-            "deviceHealthAttestationState": {
-              "type": "object",
-              "properties": {
-                "@odata.type": {
-                  "type": "string",
-                  "description": "@odata.type"
-                },
-                "lastUpdateDateTime": {
-                  "type": "string",
-                  "description": "lastUpdateDateTime"
-                },
-                "contentNamespaceUrl": {
-                  "type": "string",
-                  "description": "contentNamespaceUrl"
-                },
-                "deviceHealthAttestationStatus": {
-                  "type": "string",
-                  "description": "deviceHealthAttestationStatus"
-                },
-                "contentVersion": {
-                  "type": "string",
-                  "description": "contentVersion"
-                },
-                "issuedDateTime": {
-                  "type": "string",
-                  "description": "issuedDateTime"
-                },
-                "attestationIdentityKey": {
-                  "type": "string",
-                  "description": "attestationIdentityKey"
-                },
-                "resetCount": {
-                  "type": "integer",
-                  "format": "int32",
-                  "description": "resetCount"
-                },
-                "restartCount": {
-                  "type": "integer",
-                  "format": "int32",
-                  "description": "restartCount"
-                },
-                "dataExcutionPolicy": {
-                  "type": "string",
-                  "description": "dataExcutionPolicy"
-                },
-                "bitLockerStatus": {
-                  "type": "string",
-                  "description": "bitLockerStatus"
-                },
-                "bootManagerVersion": {
-                  "type": "string",
-                  "description": "bootManagerVersion"
-                },
-                "codeIntegrityCheckVersion": {
-                  "type": "string",
-                  "description": "codeIntegrityCheckVersion"
-                },
-                "secureBoot": {
-                  "type": "string",
-                  "description": "secureBoot"
-                },
-                "bootDebugging": {
-                  "type": "string",
-                  "description": "bootDebugging"
-                },
-                "operatingSystemKernelDebugging": {
-                  "type": "string",
-                  "description": "operatingSystemKernelDebugging"
-                },
-                "codeIntegrity": {
-                  "type": "string",
-                  "description": "codeIntegrity"
-                },
-                "testSigning": {
-                  "type": "string",
-                  "description": "testSigning"
-                },
-                "safeMode": {
-                  "type": "string",
-                  "description": "safeMode"
-                },
-                "windowsPE": {
-                  "type": "string",
-                  "description": "windowsPE"
-                },
-                "earlyLaunchAntiMalwareDriverProtection": {
-                  "type": "string",
-                  "description": "earlyLaunchAntiMalwareDriverProtection"
-                },
-                "virtualSecureMode": {
-                  "type": "string",
-                  "description": "virtualSecureMode"
-                },
-                "pcrHashAlgorithm": {
-                  "type": "string",
-                  "description": "pcrHashAlgorithm"
-                },
-                "bootAppSecurityVersion": {
-                  "type": "string",
-                  "description": "bootAppSecurityVersion"
-                },
-                "bootManagerSecurityVersion": {
-                  "type": "string",
-                  "description": "bootManagerSecurityVersion"
-                },
-                "tpmVersion": {
-                  "type": "string",
-                  "description": "tpmVersion"
-                },
-                "pcr0": {
-                  "type": "string",
-                  "description": "pcr0"
-                },
-                "secureBootConfigurationPolicyFingerPrint": {
-                  "type": "string",
-                  "description": "secureBootConfigurationPolicyFingerPrint"
-                },
-                "codeIntegrityPolicy": {
-                  "type": "string",
-                  "description": "codeIntegrityPolicy"
-                },
-                "bootRevisionListInfo": {
-                  "type": "string",
-                  "description": "bootRevisionListInfo"
-                },
-                "operatingSystemRevListInfo": {
-                  "type": "string",
-                  "description": "operatingSystemRevListInfo"
-                },
-                "healthStatusMismatchInfo": {
-                  "type": "string",
-                  "description": "healthStatusMismatchInfo"
-                },
-                "healthAttestationSupportedStatus": {
-                  "type": "string",
-                  "description": "healthAttestationSupportedStatus"
-                }
-              },
-              "description": "deviceHealthAttestationState"
-            },
-            "subscriberCarrier": {
-              "type": "string",
-              "description": "subscriberCarrier"
-            },
-            "meid": {
-              "type": "string",
-              "description": "meid"
-            },
-            "totalStorageSpaceInBytes": {
-              "type": "integer",
-              "format": "int32",
-              "description": "totalStorageSpaceInBytes"
-            },
-            "freeStorageSpaceInBytes": {
-              "type": "integer",
-              "format": "int32",
-              "description": "freeStorageSpaceInBytes"
-            },
-            "managedDeviceName": {
-              "type": "string",
-              "description": "managedDeviceName"
-            },
-            "partnerReportedThreatState": {
-              "type": "string",
-              "description": "partnerReportedThreatState"
-            }
-          },
-          "description": "value"
+    "swagger": "2.0",
+    "info": {
+        "title": "MEM Microsoft Intune Connector",
+        "description": "The Microsoft Intune connector helps to automate Microsoft Intune",
+        "version": "0.1",
+        "contact": {
+            "name": "team_name",
+            "email": "exampleemail@example.com"
         }
-      }
+    },
+    "host": "graph.microsoft.com",
+    "basePath": "/",
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/v1.0/deviceManagement/managedDevices/{managedDeviceId}": {
+            "get": {
+                "description": "Get a device by managed device id",
+                "summary": "Get Device",
+                "operationId": "GetDevice",
+                "responses": {
+                    "default": {
+                        "description": "default",
+                        "schema": {
+                            "$ref": "#/definitions/Get_managedDeviceResponse"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "managedDeviceId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Unique Identifier for the device",
+                        "x-ms-visibility": "important",
+                        "x-ms-url-encoding": "single",
+                        "x-ms-summary": "Managed Device Id"
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {
+        "Get_managedDeviceResponse": {
+            "title": "managedDevice",
+            "description": "Devices that are managed or pre-enrolled through Intune",
+            "type": "object",
+            "properties": {
+                "value": {
+                    "properties": {
+                        "deviceActionResults": {
+                            "description": "List of ComplexType deviceActionResult objects.",
+                            "items": {
+                                "properties": {
+                                    "lastUpdatedDateTime": {
+                                        "format": "timestamp",
+                                        "description": "Time the action state was last updated",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "startDateTime": {
+                                        "format": "timestamp",
+                                        "description": "Time the action was initiated",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "actionState": {
+                                        "enum": [
+                                            "none",
+                                            "pending",
+                                            "canceled",
+                                            "active",
+                                            "done",
+                                            "failed",
+                                            "notSupported"
+                                        ],
+                                        "format": "enum",
+                                        "type": "string"
+                                    },
+                                    "actionName": {
+                                        "description": "Action name",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array",
+                            "x-nullable": "true"
+                        },
+                        "complianceGracePeriodExpirationDateTime": {
+                            "format": "timestamp",
+                            "description": "The DateTime when device compliance grace period expires",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "model": {
+                            "description": "Model of the device",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "deviceCategoryDisplayName": {
+                            "description": "Device category display name",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "userId": {
+                            "description": "Unique Identifier for the user associated with the device",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "lastSyncDateTime": {
+                            "format": "timestamp",
+                            "description": "The date and time that the device last completed a successful sync with Intune.",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "exchangeAccessStateReason": {
+                            "enum": [
+                                "none",
+                                "unknown",
+                                "exchangeGlobalRule",
+                                "exchangeIndividualRule",
+                                "exchangeDeviceRule",
+                                "exchangeUpgrade",
+                                "exchangeMailboxPolicy",
+                                "other",
+                                "compliant",
+                                "notCompliant",
+                                "notEnrolled",
+                                "unknownLocation",
+                                "mfaRequired",
+                                "azureADBlockDueToAccessPolicy",
+                                "compromisedPassword",
+                                "deviceNotKnownWithManagedApp"
+                            ],
+                            "format": "enum",
+                            "type": "string"
+                        },
+                        "managementAgent": {
+                            "enum": [
+                                "eas",
+                                "mdm",
+                                "easMdm",
+                                "intuneClient",
+                                "easIntuneClient",
+                                "configurationManagerClient",
+                                "configurationManagerClientMdm",
+                                "configurationManagerClientMdmEas",
+                                "unknown",
+                                "jamf",
+                                "googleCloudDevicePolicyController"
+                            ],
+                            "format": "enum",
+                            "type": "string"
+                        },
+                        "complianceState": {
+                            "enum": [
+                                "unknown",
+                                "compliant",
+                                "noncompliant",
+                                "conflict",
+                                "error",
+                                "inGracePeriod",
+                                "configManager"
+                            ],
+                            "format": "enum",
+                            "type": "string"
+                        },
+                        "osVersion": {
+                            "description": "Operating system version of the device.",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "isEncrypted": {
+                            "description": "Device encryption status",
+                            "type": "boolean",
+                            "x-nullable": "true"
+                        },
+                        "userPrincipalName": {
+                            "description": "Device user principal name",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "deviceRegistrationState": {
+                            "enum": [
+                                "notRegistered",
+                                "registered",
+                                "revoked",
+                                "keyConflict",
+                                "approvalPending",
+                                "certificateReset",
+                                "notRegisteredPendingEnrollment",
+                                "unknown"
+                            ],
+                            "format": "enum",
+                            "type": "string"
+                        },
+                        "partnerReportedThreatState": {
+                            "enum": [
+                                "unknown",
+                                "activated",
+                                "deactivated",
+                                "secured",
+                                "lowSeverity",
+                                "mediumSeverity",
+                                "highSeverity",
+                                "unresponsive",
+                                "compromised",
+                                "misconfigured"
+                            ],
+                            "format": "enum",
+                            "type": "string"
+                        },
+                        "emailAddress": {
+                            "description": "Email(s) for the user associated with the device",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "enrolledDateTime": {
+                            "format": "timestamp",
+                            "description": "Enrollment time of the device.",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "totalStorageSpaceInBytes": {
+                            "format": "int64",
+                            "description": "Total Storage in Bytes",
+                            "type": "integer",
+                            "x-nullable": "true"
+                        },
+                        "freeStorageSpaceInBytes": {
+                            "format": "int64",
+                            "description": "Free Storage in Bytes",
+                            "type": "integer",
+                            "x-nullable": "true"
+                        },
+                        "easActivationDateTime": {
+                            "format": "timestamp",
+                            "description": "Exchange ActivationSync activation time of the device.",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "isSupervised": {
+                            "description": "Device supervised status",
+                            "type": "boolean",
+                            "x-nullable": "true"
+                        },
+                        "operatingSystem": {
+                            "description": "Operating system of the device. Windows, iOS, etc.",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "meid": {
+                            "description": "MEID",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "serialNumber": {
+                            "description": "SerialNumber",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "deviceName": {
+                            "description": "Name of the device",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "deviceEnrollmentType": {
+                            "enum": [
+                                "unknown",
+                                "userEnrollment",
+                                "deviceEnrollmentManager",
+                                "appleBulkWithUser",
+                                "appleBulkWithoutUser",
+                                "windowsAzureADJoin",
+                                "windowsBulkUserless",
+                                "windowsAutoEnrollment",
+                                "windowsBulkAzureDomainJoin",
+                                "windowsCoManagement"
+                            ],
+                            "format": "enum",
+                            "type": "string"
+                        },
+                        "easActivated": {
+                            "description": "Whether the device is Exchange ActiveSync activated.",
+                            "type": "boolean",
+                            "x-nullable": "true"
+                        },
+                        "deviceHealthAttestationState": {
+                            "properties": {
+                                "secureBoot": {
+                                    "description": "When Secure Boot is enabled, the core components must have the correct cryptographic signatures",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "windowsPE": {
+                                    "description": "Operating system running with limited services that is used to prepare a computer for Windows",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "bitLockerStatus": {
+                                    "description": "On or Off of BitLocker Drive Encryption",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "tpmVersion": {
+                                    "description": "The security version number of the Boot Application",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "codeIntegrityCheckVersion": {
+                                    "description": "The version of the Boot Manager",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "deviceHealthAttestationStatus": {
+                                    "description": "The DHA report version. (Namespace version)",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "bootDebugging": {
+                                    "description": "When bootDebugging is enabled, the device is used in development and testing",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "attestationIdentityKey": {
+                                    "description": "TWhen an Attestation Identity Key (AIK) is present on a device, it indicates that the device has an endorsement key (EK) certificate.",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "codeIntegrityPolicy": {
+                                    "description": "The Code Integrity policy that is controlling the security of the boot environment",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "bootRevisionListInfo": {
+                                    "description": "The Boot Revision List that was loaded during initial boot on the attested device",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "lastUpdateDateTime": {
+                                    "description": "The Timestamp of the last update.",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "virtualSecureMode": {
+                                    "description": "VSM is a container that protects high value assets from a compromised kernel",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "testSigning": {
+                                    "description": "When test signing is allowed, the device does not enforce signature validation during boot",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "earlyLaunchAntiMalwareDriverProtection": {
+                                    "description": "ELAM provides protection for the computers in your network when they start up",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "dataExcutionPolicy": {
+                                    "description": "DEP Policy defines a set of hardware and software technologies that perform additional checks on memory ",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "contentVersion": {
+                                    "description": "The HealthAttestation state schema version",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "healthAttestationSupportedStatus": {
+                                    "description": "This attribute indicates if DHA is supported for the device",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "operatingSystemRevListInfo": {
+                                    "description": "The Operating System Revision List that was loaded during initial boot on the attested device",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "issuedDateTime": {
+                                    "format": "timestamp",
+                                    "description": "The DateTime when device was evaluated or issued to MDM",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "healthStatusMismatchInfo": {
+                                    "description": "This attribute appears if DHA-Service detects an integrity issue",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "bootManagerSecurityVersion": {
+                                    "description": "The security version number of the Boot Application",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "codeIntegrity": {
+                                    "description": " When code integrity is enabled, code execution is restricted to integrity verified code",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "safeMode": {
+                                    "description": "Safe mode is a troubleshooting option for Windows that starts your computer in a limited state",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "contentNamespaceUrl": {
+                                    "description": "The DHA report version. (Namespace version)",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "resetCount": {
+                                    "format": "int64",
+                                    "description": "The number of times a PC device has hibernated or resumed",
+                                    "type": "integer",
+                                    "x-nullable": "true"
+                                },
+                                "bootAppSecurityVersion": {
+                                    "description": "The security version number of the Boot Application",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "pcrHashAlgorithm": {
+                                    "description": "Informational attribute that identifies the HASH algorithm that was used by TPM",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "restartCount": {
+                                    "format": "int64",
+                                    "description": "The number of times a PC device has rebooted",
+                                    "type": "integer",
+                                    "x-nullable": "true"
+                                },
+                                "pcr0": {
+                                    "description": "The measurement that is captured in PCR[0]",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "secureBootConfigurationPolicyFingerPrint": {
+                                    "description": "Fingerprint of the Custom Secure Boot Configuration Policy",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "bootManagerVersion": {
+                                    "description": "The version of the Boot Manager",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                },
+                                "operatingSystemKernelDebugging": {
+                                    "description": "When operatingSystemKernelDebugging is enabled, the device is used in development and testing",
+                                    "type": "string",
+                                    "x-nullable": "true"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "easDeviceId": {
+                            "description": "Exchange ActiveSync Id of the device.",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "azureADDeviceId": {
+                            "description": "The unique identifier for the Azure Active Directory device. Read only.",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "imei": {
+                            "description": "IMEI",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "managedDeviceName": {
+                            "description": "Automatically generated name to identify a device. Can be overwritten to a user friendly name.",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "androidSecurityPatchLevel": {
+                            "description": "Android security patch level",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "managedDeviceOwnerType": {
+                            "enum": [
+                                "unknown",
+                                "company",
+                                "personal"
+                            ],
+                            "format": "enum",
+                            "type": "string"
+                        },
+                        "id": {
+                            "description": "id-TOCHANGE",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "exchangeLastSuccessfulSyncDateTime": {
+                            "format": "timestamp",
+                            "description": "Last time the device contacted Exchange.",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "userDisplayName": {
+                            "description": "User display name",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "azureADRegistered": {
+                            "description": "Whether the device is Azure Active Directory registered.",
+                            "type": "boolean",
+                            "x-nullable": "true"
+                        },
+                        "phoneNumber": {
+                            "description": "Phone number of the device",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "activationLockBypassCode": {
+                            "description": "Code that allows the Activation Lock on a device to be bypassed.",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "remoteAssistanceSessionErrorDetails": {
+                            "description": "An error string that identifies issues when creating Remote Assistance session objects.",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "manufacturer": {
+                            "description": "Manufacturer of the device",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "exchangeAccessState": {
+                            "enum": [
+                                "none",
+                                "unknown",
+                                "allowed",
+                                "blocked",
+                                "quarantined"
+                            ],
+                            "format": "enum",
+                            "type": "string"
+                        },
+                        "configurationManagerClientEnabledFeatures": {
+                            "properties": {
+                                "compliancePolicy": {
+                                    "description": "Whether compliance policy is managed by Intune",
+                                    "type": "boolean",
+                                    "x-nullable": "true"
+                                },
+                                "resourceAccess": {
+                                    "description": "Whether resource access is managed by Intune",
+                                    "type": "boolean",
+                                    "x-nullable": "true"
+                                },
+                                "inventory": {
+                                    "description": "Whether inventory is managed by Intune",
+                                    "type": "boolean",
+                                    "x-nullable": "true"
+                                },
+                                "windowsUpdateForBusiness": {
+                                    "description": "Whether Windows Update for Business is managed by Intune",
+                                    "type": "boolean",
+                                    "x-nullable": "true"
+                                },
+                                "deviceConfiguration": {
+                                    "description": "Whether device configuration is managed by Intune",
+                                    "type": "boolean",
+                                    "x-nullable": "true"
+                                },
+                                "modernApps": {
+                                    "description": "Whether modern application is managed by Intune",
+                                    "type": "boolean",
+                                    "x-nullable": "true"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "subscriberCarrier": {
+                            "description": "Subscriber Carrier",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "remoteAssistanceSessionUrl": {
+                            "description": "Url that allows a Remote Assistance session to be established with the device.",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "wiFiMacAddress": {
+                            "description": "Wi-Fi MAC",
+                            "type": "string",
+                            "x-nullable": "true"
+                        },
+                        "jailBroken": {
+                            "description": "whether the device is jail broken or rooted.",
+                            "type": "string",
+                            "x-nullable": "true"
+                        }
+                    },
+                    "type": "object"
+                }
+            }
+        },
+        "List_managedDeviceResponse": {
+            "title": "managedDevice",
+            "description": "Devices that are managed or pre-enrolled through Intune",
+            "type": "object",
+            "properties": {
+                "value": {
+                    "items": {
+                        "properties": {
+                            "deviceActionResults": {
+                                "description": "List of ComplexType deviceActionResult objects.",
+                                "items": {
+                                    "properties": {
+                                        "lastUpdatedDateTime": {
+                                            "format": "timestamp",
+                                            "description": "Time the action state was last updated",
+                                            "type": "string",
+                                            "x-nullable": "true"
+                                        },
+                                        "startDateTime": {
+                                            "format": "timestamp",
+                                            "description": "Time the action was initiated",
+                                            "type": "string",
+                                            "x-nullable": "true"
+                                        },
+                                        "actionState": {
+                                            "enum": [
+                                                "none",
+                                                "pending",
+                                                "canceled",
+                                                "active",
+                                                "done",
+                                                "failed",
+                                                "notSupported"
+                                            ],
+                                            "format": "enum",
+                                            "type": "string"
+                                        },
+                                        "actionName": {
+                                            "description": "Action name",
+                                            "type": "string",
+                                            "x-nullable": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "type": "array",
+                                "x-nullable": "true"
+                            },
+                            "complianceGracePeriodExpirationDateTime": {
+                                "format": "timestamp",
+                                "description": "The DateTime when device compliance grace period expires",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "model": {
+                                "description": "Model of the device",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "deviceCategoryDisplayName": {
+                                "description": "Device category display name",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "userId": {
+                                "description": "Unique Identifier for the user associated with the device",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "lastSyncDateTime": {
+                                "format": "timestamp",
+                                "description": "The date and time that the device last completed a successful sync with Intune.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "exchangeAccessStateReason": {
+                                "enum": [
+                                    "none",
+                                    "unknown",
+                                    "exchangeGlobalRule",
+                                    "exchangeIndividualRule",
+                                    "exchangeDeviceRule",
+                                    "exchangeUpgrade",
+                                    "exchangeMailboxPolicy",
+                                    "other",
+                                    "compliant",
+                                    "notCompliant",
+                                    "notEnrolled",
+                                    "unknownLocation",
+                                    "mfaRequired",
+                                    "azureADBlockDueToAccessPolicy",
+                                    "compromisedPassword",
+                                    "deviceNotKnownWithManagedApp"
+                                ],
+                                "format": "enum",
+                                "type": "string"
+                            },
+                            "managementAgent": {
+                                "enum": [
+                                    "eas",
+                                    "mdm",
+                                    "easMdm",
+                                    "intuneClient",
+                                    "easIntuneClient",
+                                    "configurationManagerClient",
+                                    "configurationManagerClientMdm",
+                                    "configurationManagerClientMdmEas",
+                                    "unknown",
+                                    "jamf",
+                                    "googleCloudDevicePolicyController"
+                                ],
+                                "format": "enum",
+                                "type": "string"
+                            },
+                            "complianceState": {
+                                "enum": [
+                                    "unknown",
+                                    "compliant",
+                                    "noncompliant",
+                                    "conflict",
+                                    "error",
+                                    "inGracePeriod",
+                                    "configManager"
+                                ],
+                                "format": "enum",
+                                "type": "string"
+                            },
+                            "osVersion": {
+                                "description": "Operating system version of the device.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "isEncrypted": {
+                                "description": "Device encryption status",
+                                "type": "boolean",
+                                "x-nullable": "true"
+                            },
+                            "userPrincipalName": {
+                                "description": "Device user principal name",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "deviceRegistrationState": {
+                                "enum": [
+                                    "notRegistered",
+                                    "registered",
+                                    "revoked",
+                                    "keyConflict",
+                                    "approvalPending",
+                                    "certificateReset",
+                                    "notRegisteredPendingEnrollment",
+                                    "unknown"
+                                ],
+                                "format": "enum",
+                                "type": "string"
+                            },
+                            "partnerReportedThreatState": {
+                                "enum": [
+                                    "unknown",
+                                    "activated",
+                                    "deactivated",
+                                    "secured",
+                                    "lowSeverity",
+                                    "mediumSeverity",
+                                    "highSeverity",
+                                    "unresponsive",
+                                    "compromised",
+                                    "misconfigured"
+                                ],
+                                "format": "enum",
+                                "type": "string"
+                            },
+                            "emailAddress": {
+                                "description": "Email(s) for the user associated with the device",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "enrolledDateTime": {
+                                "format": "timestamp",
+                                "description": "Enrollment time of the device.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "totalStorageSpaceInBytes": {
+                                "format": "int64",
+                                "description": "Total Storage in Bytes",
+                                "type": "integer",
+                                "x-nullable": "true"
+                            },
+                            "freeStorageSpaceInBytes": {
+                                "format": "int64",
+                                "description": "Free Storage in Bytes",
+                                "type": "integer",
+                                "x-nullable": "true"
+                            },
+                            "easActivationDateTime": {
+                                "format": "timestamp",
+                                "description": "Exchange ActivationSync activation time of the device.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "isSupervised": {
+                                "description": "Device supervised status",
+                                "type": "boolean",
+                                "x-nullable": "true"
+                            },
+                            "operatingSystem": {
+                                "description": "Operating system of the device. Windows, iOS, etc.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "meid": {
+                                "description": "MEID",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "serialNumber": {
+                                "description": "SerialNumber",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "deviceName": {
+                                "description": "Name of the device",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "deviceEnrollmentType": {
+                                "enum": [
+                                    "unknown",
+                                    "userEnrollment",
+                                    "deviceEnrollmentManager",
+                                    "appleBulkWithUser",
+                                    "appleBulkWithoutUser",
+                                    "windowsAzureADJoin",
+                                    "windowsBulkUserless",
+                                    "windowsAutoEnrollment",
+                                    "windowsBulkAzureDomainJoin",
+                                    "windowsCoManagement"
+                                ],
+                                "format": "enum",
+                                "type": "string"
+                            },
+                            "easActivated": {
+                                "description": "Whether the device is Exchange ActiveSync activated.",
+                                "type": "boolean",
+                                "x-nullable": "true"
+                            },
+                            "deviceHealthAttestationState": {
+                                "properties": {
+                                    "secureBoot": {
+                                        "description": "When Secure Boot is enabled, the core components must have the correct cryptographic signatures",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "windowsPE": {
+                                        "description": "Operating system running with limited services that is used to prepare a computer for Windows",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "bitLockerStatus": {
+                                        "description": "On or Off of BitLocker Drive Encryption",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "tpmVersion": {
+                                        "description": "The security version number of the Boot Application",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "codeIntegrityCheckVersion": {
+                                        "description": "The version of the Boot Manager",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "deviceHealthAttestationStatus": {
+                                        "description": "The DHA report version. (Namespace version)",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "bootDebugging": {
+                                        "description": "When bootDebugging is enabled, the device is used in development and testing",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "attestationIdentityKey": {
+                                        "description": "TWhen an Attestation Identity Key (AIK) is present on a device, it indicates that the device has an endorsement key (EK) certificate.",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "codeIntegrityPolicy": {
+                                        "description": "The Code Integrity policy that is controlling the security of the boot environment",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "bootRevisionListInfo": {
+                                        "description": "The Boot Revision List that was loaded during initial boot on the attested device",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "lastUpdateDateTime": {
+                                        "description": "The Timestamp of the last update.",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "virtualSecureMode": {
+                                        "description": "VSM is a container that protects high value assets from a compromised kernel",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "testSigning": {
+                                        "description": "When test signing is allowed, the device does not enforce signature validation during boot",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "earlyLaunchAntiMalwareDriverProtection": {
+                                        "description": "ELAM provides protection for the computers in your network when they start up",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "dataExcutionPolicy": {
+                                        "description": "DEP Policy defines a set of hardware and software technologies that perform additional checks on memory ",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "contentVersion": {
+                                        "description": "The HealthAttestation state schema version",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "healthAttestationSupportedStatus": {
+                                        "description": "This attribute indicates if DHA is supported for the device",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "operatingSystemRevListInfo": {
+                                        "description": "The Operating System Revision List that was loaded during initial boot on the attested device",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "issuedDateTime": {
+                                        "format": "timestamp",
+                                        "description": "The DateTime when device was evaluated or issued to MDM",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "healthStatusMismatchInfo": {
+                                        "description": "This attribute appears if DHA-Service detects an integrity issue",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "bootManagerSecurityVersion": {
+                                        "description": "The security version number of the Boot Application",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "codeIntegrity": {
+                                        "description": " When code integrity is enabled, code execution is restricted to integrity verified code",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "safeMode": {
+                                        "description": "Safe mode is a troubleshooting option for Windows that starts your computer in a limited state",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "contentNamespaceUrl": {
+                                        "description": "The DHA report version. (Namespace version)",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "resetCount": {
+                                        "format": "int64",
+                                        "description": "The number of times a PC device has hibernated or resumed",
+                                        "type": "integer",
+                                        "x-nullable": "true"
+                                    },
+                                    "bootAppSecurityVersion": {
+                                        "description": "The security version number of the Boot Application",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "pcrHashAlgorithm": {
+                                        "description": "Informational attribute that identifies the HASH algorithm that was used by TPM",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "restartCount": {
+                                        "format": "int64",
+                                        "description": "The number of times a PC device has rebooted",
+                                        "type": "integer",
+                                        "x-nullable": "true"
+                                    },
+                                    "pcr0": {
+                                        "description": "The measurement that is captured in PCR[0]",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "secureBootConfigurationPolicyFingerPrint": {
+                                        "description": "Fingerprint of the Custom Secure Boot Configuration Policy",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "bootManagerVersion": {
+                                        "description": "The version of the Boot Manager",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    },
+                                    "operatingSystemKernelDebugging": {
+                                        "description": "When operatingSystemKernelDebugging is enabled, the device is used in development and testing",
+                                        "type": "string",
+                                        "x-nullable": "true"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "easDeviceId": {
+                                "description": "Exchange ActiveSync Id of the device.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "azureADDeviceId": {
+                                "description": "The unique identifier for the Azure Active Directory device. Read only.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "imei": {
+                                "description": "IMEI",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "managedDeviceName": {
+                                "description": "Automatically generated name to identify a device. Can be overwritten to a user friendly name.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "androidSecurityPatchLevel": {
+                                "description": "Android security patch level",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "managedDeviceOwnerType": {
+                                "enum": [
+                                    "unknown",
+                                    "company",
+                                    "personal"
+                                ],
+                                "format": "enum",
+                                "type": "string"
+                            },
+                            "id": {
+                                "description": "id-TOCHANGE",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "exchangeLastSuccessfulSyncDateTime": {
+                                "format": "timestamp",
+                                "description": "Last time the device contacted Exchange.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "userDisplayName": {
+                                "description": "User display name",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "azureADRegistered": {
+                                "description": "Whether the device is Azure Active Directory registered.",
+                                "type": "boolean",
+                                "x-nullable": "true"
+                            },
+                            "phoneNumber": {
+                                "description": "Phone number of the device",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "activationLockBypassCode": {
+                                "description": "Code that allows the Activation Lock on a device to be bypassed.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "remoteAssistanceSessionErrorDetails": {
+                                "description": "An error string that identifies issues when creating Remote Assistance session objects.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "manufacturer": {
+                                "description": "Manufacturer of the device",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "exchangeAccessState": {
+                                "enum": [
+                                    "none",
+                                    "unknown",
+                                    "allowed",
+                                    "blocked",
+                                    "quarantined"
+                                ],
+                                "format": "enum",
+                                "type": "string"
+                            },
+                            "configurationManagerClientEnabledFeatures": {
+                                "properties": {
+                                    "compliancePolicy": {
+                                        "description": "Whether compliance policy is managed by Intune",
+                                        "type": "boolean",
+                                        "x-nullable": "true"
+                                    },
+                                    "resourceAccess": {
+                                        "description": "Whether resource access is managed by Intune",
+                                        "type": "boolean",
+                                        "x-nullable": "true"
+                                    },
+                                    "inventory": {
+                                        "description": "Whether inventory is managed by Intune",
+                                        "type": "boolean",
+                                        "x-nullable": "true"
+                                    },
+                                    "windowsUpdateForBusiness": {
+                                        "description": "Whether Windows Update for Business is managed by Intune",
+                                        "type": "boolean",
+                                        "x-nullable": "true"
+                                    },
+                                    "deviceConfiguration": {
+                                        "description": "Whether device configuration is managed by Intune",
+                                        "type": "boolean",
+                                        "x-nullable": "true"
+                                    },
+                                    "modernApps": {
+                                        "description": "Whether modern application is managed by Intune",
+                                        "type": "boolean",
+                                        "x-nullable": "true"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "subscriberCarrier": {
+                                "description": "Subscriber Carrier",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "remoteAssistanceSessionUrl": {
+                                "description": "Url that allows a Remote Assistance session to be established with the device.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "wiFiMacAddress": {
+                                "description": "Wi-Fi MAC",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "jailBroken": {
+                                "description": "whether the device is jail broken or rooted.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            }
+        }
     }
-  }
 }
