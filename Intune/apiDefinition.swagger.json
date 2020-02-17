@@ -47,6 +47,31 @@
                     }
                 ]
             }
+        },
+        "/v1.0/deviceManagement/managedDevices": {
+            "get": {
+                "description": "Get managed devices",
+                "summary": "Get Devices",
+                "operationId": "GetDevices",
+                "responses": {
+                    "default": {
+                        "description": "default",
+                        "schema": {
+                            "$ref": "#/definitions/List_managedDeviceResponse"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "$filter",
+                        "in": "query",
+                        "required": false,
+                        "description": "Specify filtering condition for devices like complianceState eq \"noncompliant\".",
+                        "x-ms-summary": "Filter devices",
+                        "type": "string"
+                      }
+                ]
+            }
         }
     },
     "definitions": {
