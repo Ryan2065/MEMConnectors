@@ -1,0 +1,84 @@
+{
+    "properties": {
+      "capabilities": [
+        "gateway"
+      ],
+      "connectionParameters": {
+        "authType": {
+          "allowedValues": [
+            {
+              "value": "windows"
+            }
+          ],
+          "type": "string",
+          "uiDefinition": {
+            "constraints": {
+              "allowedValues": [
+                {
+                  "text": "windows",
+                  "value": "windows"
+                }
+              ],
+              "capability": [
+                "gateway"
+              ],
+              "required": "true",
+              "tabIndex": 1
+            },
+            "description": "Authentication type to connect to your API",
+            "displayName": "Authentication Type",
+            "tooltip": "Authentication type to connect to your API"
+          }
+        },
+        "gateway": {
+          "gatewaySettings": {
+            "connectionDetails": [],
+            "dataSourceType": "CustomConnector"
+          },
+          "type": "gatewaySetting",
+          "uiDefinition": {
+            "constraints": {
+              "capability": [
+                "gateway"
+              ],
+              "required": "true",
+              "tabIndex": 4
+            }
+          }
+        },
+        "password": {
+          "type": "securestring",
+          "uiDefinition": {
+            "constraints": {
+              "capability": [
+                "gateway"
+              ],
+              "clearText": false,
+              "required": "true",
+              "tabIndex": 3
+            },
+            "description": "The Password for this api",
+            "displayName": "Password",
+            "tooltip": "Provide the Password"
+          }
+        },
+        "username": {
+          "type": "securestring",
+          "uiDefinition": {
+            "constraints": {
+              "capability": [
+                "gateway"
+              ],
+              "clearText": true,
+              "required": "true",
+              "tabIndex": 2
+            },
+            "description": "The Username for this api",
+            "displayName": "Username",
+            "tooltip": "Provide the Username"
+          }
+        }
+      },
+      "iconBrandColor": "#007ee5"
+    }
+  }

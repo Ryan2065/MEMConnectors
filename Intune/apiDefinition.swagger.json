@@ -21,6 +21,126 @@
         "application/json"
     ],
     "paths": {
+        "/deviceManagement/managedDevices/{managedDeviceId}/locateDevice": {
+            "post": {
+                "description": "Locate a device",
+                "summary": "Locate a device",
+                "operationId": "LocateManagedDevice",
+                "responses": {
+                    "204": {
+                        "description": "Ok"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "managedDeviceId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Unique Identifier for the device",
+                        "x-ms-visibility": "important",
+                        "x-ms-url-encoding": "single",
+                        "x-ms-summary": "Managed Device Id"
+                    }
+                ]
+            }
+        },
+        "/deviceManagement/managedDevices/{managedDeviceId}/wipe": {
+            "post": {
+                "description": "Wipe a device",
+                "summary": "Wipe a device",
+                "operationId": "WipeManagedDevice",
+                "responses": {
+                    "204": {
+                        "description": "Ok"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "managedDeviceId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Unique Identifier for the device",
+                        "x-ms-visibility": "important",
+                        "x-ms-url-encoding": "single",
+                        "x-ms-summary": "Managed Device Id"
+                    }
+                ]
+            }
+        },
+        "/deviceManagement/managedDevices/{managedDeviceId}/resetPasscode": {
+            "post": {
+                "description": "Reset passcode",
+                "summary": "Reset the passcode for a device",
+                "operationId": "ResetPasscodeManagedDevice",
+                "responses": {
+                    "204": {
+                        "description": "Ok"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "managedDeviceId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Unique Identifier for the device",
+                        "x-ms-visibility": "important",
+                        "x-ms-url-encoding": "single",
+                        "x-ms-summary": "Managed Device Id"
+                    }
+                ]
+            }
+        },
+        "/deviceManagement/managedDevices/{managedDeviceId}/remoteLock": {
+            "post": {
+                "description": "Lock a device",
+                "summary": "Remotely lock a device",
+                "operationId": "RemoteLockManagedDevice",
+                "responses": {
+                    "204": {
+                        "description": "Ok"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "managedDeviceId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Unique Identifier for the device",
+                        "x-ms-visibility": "important",
+                        "x-ms-url-encoding": "single",
+                        "x-ms-summary": "Managed Device Id"
+                    }
+                ]
+            }
+        },
+        "/deviceManagement/managedDevices/{managedDeviceId}/retire": {
+            "post": {
+                "description": "Retire a device",
+                "summary": "Retire a device",
+                "operationId": "RetireManagedDevice",
+                "responses": {
+                    "204": {
+                        "description": "Ok"
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "managedDeviceId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Unique Identifier for the device",
+                        "x-ms-visibility": "important",
+                        "x-ms-url-encoding": "single",
+                        "x-ms-summary": "Managed Device Id"
+                    }
+                ]
+            }
+        },
         "/v1.0/deviceManagement/managedDevices/{managedDeviceId}": {
             "get": {
                 "description": "Get a device by managed device id",
@@ -66,10 +186,10 @@
                         "name": "$filter",
                         "in": "query",
                         "required": false,
-                        "description": "Specify filtering condition for devices like complianceState eq 'noncompliant'.",
+                        "description": "Specify filtering condition for devices like complianceState eq \u0027noncompliant\u0027.",
                         "x-ms-summary": "Filter devices",
                         "type": "string"
-                      }
+                    }
                 ]
             }
         }

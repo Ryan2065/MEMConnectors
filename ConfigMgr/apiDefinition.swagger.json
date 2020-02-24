@@ -1,0 +1,23 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "MEM ConfigMgr Connector",
+        "description": "The Microsoft Configuration Manager connector helps to automate ConfigMgr",
+        "version": "0.1",
+        "contact": {
+            "name": "team_name",
+            "email": "exampleemail@example.com"
+        }
+    },
+    "host": "CUSTOMHOSTNAMEHERE",
+    "basePath": "/",
+    "schemes": [
+        "https"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ]
+}
