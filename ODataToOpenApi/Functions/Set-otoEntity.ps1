@@ -9,7 +9,7 @@ Function Set-otoEntity{
     )
     [xml]$md = Get-Content "$MetadataPath" -raw
 
-    $objProperties = Get-otoObject -objectName $ObjectType -metadata $md -ResponseInValueProperty:$ResponseInValueProperty -ArrayResponse:$ArrayResponse
+    $objProperties = Get-otoObject -objectName $EntityName -metadata $md -ResponseInValueProperty:$ResponseInValueProperty -ArrayResponse:$ArrayResponse
 
     $swaggerJson = Get-Content $SwaggerPath -raw
     $global:SwaggerObject = ConvertFrom-Json $swaggerJson

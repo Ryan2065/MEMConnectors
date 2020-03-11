@@ -25,9 +25,11 @@ Function Get-otoObject{
                 if(@($des).Count -gt 1){
                     $des = $des[0]
                 }
-                $returnObject['description'] = $des
             }
-
+            else {
+                $des = ''
+            }
+            $returnObject['description'] = $des
             $AllProperties = Get-otoProperties -metadata $metadata -Entity $et
 
             if($ResponseInValueProperty){

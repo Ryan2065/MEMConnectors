@@ -14,7 +14,9 @@ Function Get-otoProperties {
     }
     foreach($prop in $Entity.property){
         $propObj = @{}
-        
+        if($prop.Name.StartsWith('__')){
+            continue;
+        }
         #region Description
         $descriptionpath = "$($Entity.Name)/$($prop.Name)"
         $strDes = Get-otoDescription -ObjectName $descriptionpath -Annotations $metadata.edmx.DataServices.Schema.Annotations
@@ -40,6 +42,11 @@ Function Get-otoProperties {
             "Edm.Boolean"{
                 $propObj['type'] = 'boolean'
             }
+            "Edm.Binary"{
+                $propObj['type'] = 'string'
+                $propObj['format'] = 'binary'
+                break;
+            }
             "Edm.Int64"{
                 $propObj['type'] = 'integer'
                 $propObj['format'] = 'int64'
@@ -49,6 +56,11 @@ Function Get-otoProperties {
                 $propObj['format'] = 'int32'
             }
             "graph.*"{
+                $NameToGet = $prop.type.Split('.')[1]
+                $propObj = Get-otoObject -ObjectName $NameToGet -metadata $metadata -IsRoot $false
+                break;
+            }
+            "SCCMGraph.*"{
                 $NameToGet = $prop.type.Split('.')[1]
                 $propObj = Get-otoObject -ObjectName $NameToGet -metadata $metadata -IsRoot $false
                 break;
@@ -70,6 +82,11 @@ Function Get-otoProperties {
                     "Edm.Boolean"{
                         $items['type'] = 'boolean'
                     }
+                    "Edm.Binary"{
+                        $propObj['type'] = 'string'
+                        $propObj['format'] = 'binary'
+                        break;
+                    }
                     "Edm.Int64"{
                         $items['type'] = 'integer'
                         $items['format'] = 'int64'
@@ -81,6 +98,11 @@ Function Get-otoProperties {
                     "graph.*"{
                         $NameToGet = $ColType.Split('.')[1]
                         $items = Get-otoObject -ObjectName $NameToGet -metadata $metadata -IsRoot $false
+                        break;
+                    }
+                    "SCCMGraph.*"{
+                        $NameToGet = $prop.type.Split('.')[1]
+                        $propObj = Get-otoObject -ObjectName $NameToGet -metadata $metadata -IsRoot $false
                         break;
                     }
                 }

@@ -6,7 +6,8 @@ Param(
     [Parameter(Mandatory=$true)]
     [ValidateSet("Intune", "ConfigMgr")]
     [string]$Connector,
-    [switch]$Update
+    [switch]$Update,
+    [string]$ConfigMgrHost
 )
 
 $CurrentLocation = Get-Location
@@ -26,10 +27,11 @@ $apiPropertiesContent = Get-Content "$ConnectorLocation\apiProperties.json" -Raw
 $apiDefinition = Get-Content "$ConnectorLocation\apiDefinition.swagger.json" -Raw
 
 $correctAPIPropertiesContent = $apiPropertiesContent.Replace('{{replace_with_your_client_id}}', $ClientId)
+$CorrectapiDef = $apiDefinition.Replace('CUSTOMHOSTNAMEHERE',$ConfigMgrHost)
 $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
 
 [System.IO.File]::WriteAllLines("$BinLocation\apiProperties.json", $correctAPIPropertiesContent, $Utf8NoBomEncoding)
-[System.IO.File]::WriteAllLines("$BinLocation\apiDefinition.swagger.json", $apiDefinition, $Utf8NoBomEncoding)
+[System.IO.File]::WriteAllLines("$BinLocation\apiDefinition.swagger.json", $CorrectapiDef, $Utf8NoBomEncoding)
 
 Set-Location $BinLocation
 
