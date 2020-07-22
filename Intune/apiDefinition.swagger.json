@@ -192,6 +192,70 @@
                     }
                 ]
             }
+        },
+        "/beta/deviceManagement/managedDevices/{managedDeviceId}/deviceCompliancePolicyStates": {
+            "get": {
+                "description": "Get detail compliance state by device id.",
+                "summary": "Get Detail Compliance State of Device",
+                "operationId": "GetDeviceCompliance",
+                "responses": {
+                    "default": {
+                        "description": "default",
+                        "schema": {
+                            "$ref": "#/definitions/Get_deviceCompliancePolicyStates"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "managedDeviceId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Unique Identifier for the device",
+                        "x-ms-visibility": "important",
+                        "x-ms-url-encoding": "single",
+                        "x-ms-summary": "Managed Device Id"
+                    }
+                ]
+            }
+        },
+        "/beta/deviceManagement/managedDevices/{managedDeviceId}/deviceCompliancePolicyStates/{compliancePolicyID}/settingStates": {
+            "get": {
+                "description": "Get detail compliance state of device by device and compliance policy id.",
+                "summary": "Get Detail Compliance State of Device per setting",
+                "operationId": "GetDeviceCompliancePerSetting",
+                "responses": {
+                    "default": {
+                        "description": "default",
+                        "schema": {
+                            "$ref": "#/definitions/Get_deviceCompliancePolicyPerSetting"
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "managedDeviceId",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Unique Identifier for the device",
+                        "x-ms-visibility": "important",
+                        "x-ms-url-encoding": "single",
+                        "x-ms-summary": "Managed Device Id"
+                    },
+                    {
+                        "name": "compliancePolicyID",
+                        "in": "path",
+                        "required": true,
+                        "type": "string",
+                        "description": "Unique Identifier for the Compliance Policy",
+                        "x-ms-visibility": "important",
+                        "x-ms-url-encoding": "single",
+                        "x-ms-summary": "Compliance Policy Id"
+                    }
+                ]
+            }
         }
     },
     "definitions": {
@@ -1308,6 +1372,121 @@
                             },
                             "jailBroken": {
                                 "description": "whether the device is jail broken or rooted.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            }
+        },
+        "Get_deviceCompliancePolicyStates": {
+            "title": "deviceCompliancePolicyState",
+            "description": "Devices Compliance Policy States",
+            "type": "object",
+            "properties": {
+                "value": {
+                    "items": {
+                        "properties": {
+                            "id": {
+                                "description": "Unique Identifier for compliance policy.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "displayName": {
+                                "description": "Display name of the compliance policy.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "version": {
+                                "description": "Version of the compliance policy.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "platformType": {
+                                "description": "Platform supported by the compliance policy.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "state": {
+                                "description": "Compliance status of the device.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "settingCount": {
+                                "description": "Count of settings in the compliance policy.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "userId": {
+                                "description": "Unique Identifier of the user associate to the compliance policy status.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "userPrincipalName": {
+                                "description": "User principal name of the user associate to the compliance policy status..",
+                                "type": "string",
+                                "x-nullable": "true"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                }
+            }
+        },
+        "Get_deviceCompliancePolicyPerSetting": {
+            "title": "deviceCompliancePolicyStatePerSetting",
+            "description": "Devices Compliance Policy States per Setting",
+            "type": "object",
+            "properties": {
+                "value": {
+                    "items": {
+                        "properties": {
+                            "setting": {
+                                "description": "Identifier of the setting.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "settingName": {
+                                "description": "Display name of the setting.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "errorCode": {
+                                "description": "Error code.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "errorDescription": {
+                                "description": "Description in case of an error.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "state": {
+                                "description": "Compliance status of the setting on the device.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "currentValue": {
+                                "description": "Current value.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "userEmail": {
+                                "description": "E-mail of the user associate to the compliance policy status.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "userId": {
+                                "description": "Unique Identifier of the user associate to the compliance policy status.",
+                                "type": "string",
+                                "x-nullable": "true"
+                            },
+                            "userPrincipalName": {
+                                "description": "User principal name of the user associate to the compliance policy status.",
                                 "type": "string",
                                 "x-nullable": "true"
                             }
